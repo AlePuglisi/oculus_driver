@@ -97,7 +97,7 @@ inline bool has_16bits_data(const OculusSimplePingResult2& msg)
 }
 inline double get_range(const OculusSimpleFireMessage2& msg)
 {
-    return msg.rangePercent;
+    return msg.range;
 }
 inline double get_range(const OculusSimplePingResult2& msg)
 {

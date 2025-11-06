@@ -86,30 +86,46 @@ std::string to_string(OculusPartNumberType partNumber)
     {
         case partNumberM370s:
             return "M370s";
-        case partNumberM370s_Artemis:
-            return "M370s_Artemis";
-        case partNumberM370s_Deep:
-            return "M370s_Deep";
-        case partNumberM373s:
-            return "M373s";
-        case partNumberM373s_Deep:
-            return "M373s_Deep";
+        case partNumberMT370s:
+            return "partNumberMT370s";
+        case partNumberMD370s:
+            return "partNumberMD370s";
+        case partNumberMD370s_Burton:
+            return "partNumberMD370s_Burton";
+        case partNumberMD370s_Impulse:
+            return "partNumberMD370s_Impulse";
+
         case partNumberM750d:
             return "M750d";
-        case partNumberM750d_Fusion:
-            return "M750d_Fusion";
-        case partNumberM750d_Artemis:
-            return "M750d_Artemis";
+        case partNumberMT750d:
+            return "partNumberMT750d";
+        case partNumberMD750d:
+            return "partNumberMD750d";
+        case partNumberMD750d_Burton:
+            return "partNumberMD750d_Burton";
+        case partNumberMD750d_Impulse:
+            return "partNumberMD750d_Impulse";
+
         case partNumberM1200d:
             return "M1200d";
-        case partNumberM1200d_Deep:
-            return "M1200d_Deep";
-        case partNumberM1200d_Artemis:
-            return "M1200d_Artemis";
-        case partNumberN1200s:
-            return "N1200s";
-        case partNumberN1200s_Deep:
-            return "N1200s_Deep";
+        case partNumberMT1200d:
+            return "partNumberMT1200d";
+        case partNumberMD1200d:
+            return "partNumberMD1200d";
+        case partNumberMD1200d_Burton:
+            return "partNumberMD1200d_Burton";
+        case partNumberMD1200d_Impulse:
+            return "partNumberMD1200d_Impulse";
+
+        case partNumberM3000d:
+            return "partNumberM3000d";
+        case partNumberMT3000d:
+            return "partNumberMT3000d";
+        case partNumberMD3000d_Burton:
+            return "partNumberMD3000d_Burton";
+        case partNumberMD3000d_Impulse:
+            return "partNumberMD3000d_Impulse";
+
         default:
             return "unknown";
     }
@@ -124,7 +140,7 @@ std::string to_string(const OculusMessageHeader& msg, const std::string& prefix)
         << prefix << "msgId       : " << msg.msgId
         << prefix << "msgVersion  : " << msg.msgVersion
         << prefix << "payloadSize : " << msg.payloadSize
-        << prefix << "spare2      : " << msg.spare2;
+        << prefix << "partNumber  : " << msg.partNumber;
     return oss.str();
 }
 
@@ -173,7 +189,7 @@ std::string to_string(const OculusSimplePingResult& msg, const std::string& pref
         << prefix << "frequency         : " <<  msg.frequency
         << prefix << "temperature       : " <<  msg.temperature
         << prefix << "pressure          : " <<  msg.pressure
-        << prefix << "speeedOfSoundUsed : " <<  msg.speeedOfSoundUsed
+        << prefix << "speedOfSoundUsed : " <<  msg.speedOfSoundUsed
         << prefix << "pingStartTime     : " <<  msg.pingStartTime
         << prefix << "dataSize          : " <<  msg.dataSize
         << prefix << "rangeResolution   : " <<  msg.rangeResolution
@@ -188,20 +204,26 @@ std::string to_string(const OculusSimplePingResult& msg, const std::string& pref
 std::string to_string(const OculusSimpleFireMessage2& msg, const std::string& prefix)
 {
     std::ostringstream oss;
-    oss << prefix << "masterMode      : " << (int)msg.masterMode
-        << prefix << "pingRate        : " << (int)msg.pingRate
-        << prefix << "networkSpeed    : " << (int)msg.networkSpeed
-        << prefix << "gammaCorrection : " << (int)msg.gammaCorrection
-        << prefix << "flags           : " << std::hex <<(int)msg.flags
-        << prefix << "rangePercent    : " << msg.rangePercent
-        << prefix << "gainPercent     : " << msg.gainPercent
-        << prefix << "speedOfSound    : " << msg.speedOfSound
-        << prefix << "salinity        : " << msg.salinity
-        << prefix << "extFlags        : " << std::hex << msg.extFlags
-        << prefix << "reserved        :";
-    for(unsigned int i = 0; i < 8; i++) {
-        oss << " " << msg.reserved[i];
+    oss << prefix << "masterMode             : " << (int)msg.masterMode
+        << prefix << "pingRate               : " << (int)msg.pingRate
+        << prefix << "networkSpeed           : " << (int)msg.networkSpeed
+        << prefix << "gammaCorrection        : " << (int)msg.gammaCorrection
+        << prefix << "flags                  : " << std::hex <<(int)msg.flags
+        << prefix << "range                  : " << msg.range
+        << prefix << "gainPercent            : " << msg.gainPercent
+        << prefix << "speedOfSound           : " << msg.speedOfSound
+        << prefix << "salinity               : " << msg.salinity
+        << prefix << "extFlags               : " << std::hex << msg.extFlags
+        << prefix << "reserved0              : ";
+    for(unsigned int i = 0; i < 2; i++) {
+        oss << " " << msg.reserved0[i];
     }
+    oss << prefix << "beaconLocatorFrequency : " << msg.beaconLocatorFrequency
+        << prefix << "reserved1              : ";
+    for(unsigned int i = 0; i < 5; i++) {
+        oss << " " << msg.reserved1[i];
+    }
+
     return oss.str();
 }
 
@@ -216,7 +238,7 @@ std::string to_string(const OculusSimplePingResult2& msg, const std::string& pre
         << prefix << "heading           : " << msg.heading
         << prefix << "pitch             : " << msg.pitch  
         << prefix << "roll              : " << msg.roll   
-        << prefix << "speedOfSoundUsed  : " << msg.speeedOfSoundUsed
+        << prefix << "speedOfSoundUsed  : " << msg.speedOfSoundUsed
         << prefix << "pingStartTime     : " << msg.pingStartTime
         << prefix << "dataSize          : " << msg.dataSize
         << prefix << "rangeResolution   : " << msg.rangeResolution

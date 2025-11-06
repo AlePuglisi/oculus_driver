@@ -236,7 +236,7 @@ class PingWrapper1 : public PingWrapper
     virtual double   range()               const { return this->metadata().fireMessage.range;       }
     virtual double   gain_percent()        const { return this->metadata().fireMessage.gainPercent; } 
     virtual double   frequency()           const { return this->metadata().frequency;               }
-    virtual double   speed_of_sound_used() const { return this->metadata().speeedOfSoundUsed;       }
+    virtual double   speed_of_sound_used() const { return this->metadata().speedOfSoundUsed;       }
     virtual double   range_resolution()    const { return this->metadata().rangeResolution;         }
     virtual double   temperature()         const { return this->metadata().temperature;             }
     virtual double   pressure()            const { return this->metadata().pressure;                }
@@ -312,10 +312,10 @@ class PingWrapper2 : public PingWrapper
 
     virtual uint32_t ping_index()        const { return this->metadata().pingId;                   }
     virtual uint32_t ping_firing_date()  const { return (uint32_t)this->metadata().pingStartTime;  }
-    virtual double range()               const { return this->metadata().fireMessage.rangePercent; }
+    virtual double range()               const { return this->metadata().fireMessage.range; }
     virtual double gain_percent()        const { return this->metadata().fireMessage.gainPercent;  } 
     virtual double frequency()           const { return this->metadata().frequency;                }
-    virtual double speed_of_sound_used() const { return this->metadata().speeedOfSoundUsed;        }
+    virtual double speed_of_sound_used() const { return this->metadata().speedOfSoundUsed;        }
     virtual double range_resolution()    const { return this->metadata().rangeResolution;          }
     virtual double temperature()         const { return this->metadata().temperature;              }
     virtual double pressure()            const { return this->metadata().pressure;                 }
